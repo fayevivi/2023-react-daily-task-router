@@ -2,9 +2,11 @@ import "./App.css";
 import {
   HashRouter,
   NavLink,
+  Outlet,
   Route,
   Routes,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 
 // 建立Logout元件，並在Logout元件裡面使用useNavigate()
@@ -33,6 +35,22 @@ const Register = () => {
   return <p>這是註冊頁面</p>;
 };
 
+// 建立Post元件:父層
+const Post = () => {
+  return (
+    <>
+      這是Post父層
+      {/* 包子層元件 */}
+      <Outlet />
+    </>
+  );
+};
+// 建立PostID (是Post元件的子層)
+const PostID = () => {
+  let params = useParams();
+  return <p>PostID: {params.postID}</p>;
+};
+
 function App() {
   return (
     <div className="container">
@@ -50,6 +68,10 @@ function App() {
           <NavLink to="/todo">
             <p>Todo 頁面</p>
           </NavLink>
+          {/* 練習動態路由:帶入可變動的postID */}
+          <NavLink to="/post/postID">
+            <p>Post 頁面</p>
+          </NavLink>
         </div>
         {/* Routes, Route 練習區 */}
         <Routes>
@@ -57,6 +79,11 @@ function App() {
           <Route path="/register" element={<Register />}></Route>;
           <Route path="/login" element={<Login />}></Route>;
           <Route path="/todo" element={<Todo />}></Route>;
+          {/* 父層包子層的路由設定 */}
+          <Route path="/post" element={<Post />}>
+            <Route path=":postID" element={<PostID />}></Route>
+          </Route>
+          ;
         </Routes>
         {/* 練習區 */}
       </HashRouter>
