@@ -1,8 +1,30 @@
 import "./App.css";
-import { HashRouter, NavLink, Route, Routes } from "react-router-dom";
+import {
+  HashRouter,
+  NavLink,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 
+// 建立Logout元件，並在Logout元件裡面使用useNavigate()
+// onClick的時候用箭頭函式執行navigate(帶入路徑)
+const Logout = () => {
+  let navigate = useNavigate();
+  return (
+    <button type="button" onClick={() => navigate("/login")}>
+      logout
+    </button>
+  );
+};
 const Todo = () => {
-  return <p>這是 Todo 頁面</p>;
+  return (
+    <>
+      <p>這是 Todo 頁面</p>
+      {/* 在Todo頁面增加Logout元件 */}
+      <Logout></Logout>
+    </>
+  );
 };
 const Login = () => {
   return <p>這是登入頁面</p>;
